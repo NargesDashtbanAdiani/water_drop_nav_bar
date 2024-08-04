@@ -6,52 +6,35 @@ import 'build_running_drop.dart';
 
 typedef OnButtonPressCallback = void Function(int index);
 
-class WaterDropNavBar extends StatefulWidget {
-  /// Background Color of the bar.
-  final Color backgroundColor;
-
-  /// Callback When individual barItem is pressed.
-  final OnButtonPressCallback onItemSelected;
-
-  /// Current selected index of the bar item.
+class BuildNavBar extends StatefulWidget {
   final int selectedIndex;
-
-  /// List of bar items that shows horizontally, Minimum 2 and maximum 4 items.
-  final List<BarItem> barItems;
-
-  /// Color of water drop which is also the active icon color.
-  final Color waterDropColor;
-
-  /// Inactive icon color by default it will use water drop color.
-  final Color inactiveIconColor;
-
-  /// Each active & inactive icon size, default value is 30 don't make it too big or small.
+  final List<BarItem> itmes;
+  final Color backgroundColor;
+  final OnButtonPressCallback onItemSelected;
+  final Color dropColor;
   final double iconSize;
-
-  /// Bottom padding of the bar. If nothing is provided the it will use
-  /// [MediaQuery.of(context).padding.bottom] value.
+  final Color inactiveIconColor;
   final double? bottomPadding;
+  final bool? isPersian;
 
-  const WaterDropNavBar({
-    required this.barItems,
-    required this.selectedIndex,
-    required this.onItemSelected,
-    this.bottomPadding,
-    this.backgroundColor = Colors.white,
-    this.waterDropColor = const Color(0xFF5B75F0),
-    this.iconSize = 28,
-    Color? inactiveIconColor,
-    Key? key,
-  })  : inactiveIconColor = inactiveIconColor ?? waterDropColor,
-        assert(barItems.length > 1, 'You must provide minimum 2 bar items'),
-        assert(barItems.length < 5, 'Maximum bar items count is 4'),
-        super(key: key);
+  const BuildNavBar(
+      {Key? key,
+      required this.itmes,
+      required this.backgroundColor,
+      required this.selectedIndex,
+      required this.onItemSelected,
+      required this.dropColor,
+      required this.iconSize,
+      required this.inactiveIconColor,
+      required this.bottomPadding,
+      required this.isPersian})
+      : super(key: key);
 
   @override
-  _WaterDropNavBarState createState() => _WaterDropNavBarState();
+  _BuildNavBarState createState() => _BuildNavBarState();
 }
 
-class _WaterDropNavBarState extends State<WaterDropNavBar>
+class _BuildNavBarState extends State<BuildNavBar>
     with TickerProviderStateMixin {
   int _previousIndex = 0;
 
@@ -68,45 +51,40 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
   }
 
   void _onTap(int index) {
-    final int selectedIndex = widget.selectedIndex;
+    final selectedIndex = widget.selectedIndex;
 
-    if (_controller.isAnimating) {
+    if (selectedIndex == index || _controller.isAnimating) {
       return;
-    } else if (selectedIndex == index) {
-      widget.onItemSelected(index);
     } else {
       widget.onItemSelected(index);
-
       _controller.forward(from: 0.0);
-
-      _previousIndex = widget.selectedIndex;
+      _controller.addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          setState(() {
+            _previousIndex = index;
+          });
+        }
+      });
     }
-
-    // if (selectedIndex == index || _controller.isAnimating) {
-    //   return;
-    // } else {
-    //   widget.onItemSelected(index);
-    //   _controller.forward(from: 0.0);
-    //   _previousIndex = widget.selectedIndex;
-    // }
   }
 
   @override
   Widget build(BuildContext context) {
-    final int selectedIndex = widget.selectedIndex;
-    final Color backgroundColor = widget.backgroundColor;
-    final Color dropColor = widget.waterDropColor;
-    final List<BarItem> items = widget.barItems;
-    final double iconSize = widget.iconSize;
-    final Color inactiveIconColor = widget.inactiveIconColor;
-    final double bottomPadding =
+    final selectedIndex = widget.selectedIndex;
+    final backgroundColor = widget.backgroundColor;
+    final dropColor = widget.dropColor;
+    final items = widget.itmes;
+    final iconSize = widget.iconSize;
+    final inactiveIconColor = widget.inactiveIconColor;
+    final bottomPadding =
         widget.bottomPadding ?? MediaQuery.of(context).padding.bottom;
-    final double barHeight = 60 + bottomPadding;
+    final barHeight = 60 + bottomPadding;
+    final isPersian = widget.isPersian;
     return Container(
       height: barHeight,
       color: backgroundColor,
       child: Stack(
-        children: <Widget>[
+        children: [
           Align(
             alignment: Alignment.bottomCenter,
             child: AnimatedBuilder(
@@ -115,8 +93,8 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 // crossAxisAlignment: CrossAxisAlignment.end,
                 children: items.map(
-                  (BarItem item) {
-                    final int index = items.indexOf(item);
+                  (barItem) {
+                    final index = items.indexOf(barItem);
                     return BuildIconButton(
                       bottomPadding: bottomPadding,
                       barHeight: barHeight,
@@ -127,8 +105,8 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
                       iconSize: iconSize,
                       seletedIndex: selectedIndex.toInt(),
                       controller: _controller,
-                      selectedIcon: item.filledIcon,
-                      unslectedIcon: item.outlinedIcon,
+                      selectedIcon: barItem.filledIcon,
+                      unslectedIcon: barItem.outlinedIcon,
                       onPressed: () => _onTap(index),
                     );
                   },
@@ -142,6 +120,7 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
             selectedIndex: selectedIndex,
             previousIndex: _previousIndex,
             color: dropColor,
+            isPersian: isPersian ?? false,
           )
         ],
       ),

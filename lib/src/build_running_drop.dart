@@ -8,14 +8,16 @@ class BuildRunningDrop extends StatelessWidget {
   final int previousIndex;
   final Color color;
   final int itemCount;
-  const BuildRunningDrop({
-    Key? key,
-    required this.controller,
-    required this.selectedIndex,
-    required this.previousIndex,
-    required this.color,
-    required this.itemCount,
-  }) : super(key: key);
+  final bool isPersian;
+  const BuildRunningDrop(
+      {Key? key,
+      required this.controller,
+      required this.selectedIndex,
+      required this.previousIndex,
+      required this.color,
+      required this.itemCount,
+      required this.isPersian})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +27,12 @@ class BuildRunningDrop extends StatelessWidget {
       animation: controller,
       builder: (_, __) => Transform.translate(
         offset: Tween<Offset>(
-                begin: Offset(previousIndex * maxElementWidth, 0),
-                end: Offset(selectedIndex * maxElementWidth, 0))
+                begin: isPersian
+                    ? Offset(previousIndex * -maxElementWidth, 0)
+                    : Offset(previousIndex * maxElementWidth, 0),
+                end: isPersian
+                    ? Offset(selectedIndex * -maxElementWidth, 0)
+                    : Offset(selectedIndex * maxElementWidth, 0))
             .animate(
               CurvedAnimation(
                 parent: controller,
