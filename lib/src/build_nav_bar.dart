@@ -133,13 +133,16 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
               ),
             ),
           ),
-          BuildRunningDrop(
-            itemCount: items.length,
-            controller: _controller,
-            selectedIndex: selectedIndex,
-            previousIndex: _previousIndex,
-            color: dropColor,
-            isPersian: widget.ispersian,
+          Container(
+            color: Colors.blue,
+            child: BuildRunningDrop(
+              itemCount: items.length,
+              controller: _controller,
+              selectedIndex: selectedIndex,
+              previousIndex: _previousIndex,
+              color: dropColor,
+              isPersian: widget.ispersian,
+            ),
           ),
         ],
       ),
