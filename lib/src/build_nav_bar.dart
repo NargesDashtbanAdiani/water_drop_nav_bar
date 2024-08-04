@@ -101,52 +101,52 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
       color: backgroundColor,
       child: Stack(
         children: <Widget>[
-          Container(
-            color: Colors.red,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: AnimatedBuilder(
-                animation: _controller,
-                builder: (_, __) => Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  // crossAxisAlignment: CrossAxisAlignment.end,
-                  children: items.map(
-                    (BarItem item) {
-                      final int index = items.indexOf(item);
-                      return Container(
-                        color: Colors.black,
-                        child: BuildIconButton(
-                          bottomPadding: bottomPadding,
-                          barHeight: barHeight,
-                          barColor: backgroundColor,
-                          inactiveColor: inactiveIconColor,
-                          color: dropColor,
-                          index: index,
-                          iconSize: iconSize,
-                          seletedIndex: selectedIndex.toInt(),
-                          controller: _controller,
-                          selectedIcon: item.filledIcon,
-                          unslectedIcon: item.outlinedIcon,
-                          onPressed: () => _onTap(index),
-                        ),
-                      );
-                    },
-                  ).toList(),
-                ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: AnimatedBuilder(
+              animation: _controller,
+              builder: (_, __) => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                // crossAxisAlignment: CrossAxisAlignment.end,
+                children: items.map(
+                  (BarItem item) {
+                    final int index = items.indexOf(item);
+                    return Container(
+                      color: Colors.black,
+                      child: BuildIconButton(
+                        bottomPadding: bottomPadding,
+                        barHeight: barHeight,
+                        barColor: backgroundColor,
+                        inactiveColor: inactiveIconColor,
+                        color: dropColor,
+                        index: index,
+                        iconSize: iconSize,
+                        seletedIndex: selectedIndex.toInt(),
+                        controller: _controller,
+                        selectedIcon: item.filledIcon,
+                        unslectedIcon: item.outlinedIcon,
+                        onPressed: () => _onTap(index),
+                      ),
+                    );
+                  },
+                ).toList(),
               ),
             ),
           ),
-          Container(
-            color: Colors.blue,
-            child: RotatedBox(
-              quarterTurns: 2,
-              child: BuildRunningDrop(
-                itemCount: items.length,
-                controller: _controller,
-                selectedIndex: selectedIndex,
-                previousIndex: _previousIndex,
-                color: dropColor,
-                isPersian: widget.ispersian,
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              color: Colors.blue,
+              child: RotatedBox(
+                quarterTurns: 2,
+                child: BuildRunningDrop(
+                  itemCount: items.length,
+                  controller: _controller,
+                  selectedIndex: selectedIndex,
+                  previousIndex: _previousIndex,
+                  color: dropColor,
+                  isPersian: widget.ispersian,
+                ),
               ),
             ),
           ),

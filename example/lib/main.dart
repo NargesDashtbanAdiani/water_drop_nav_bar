@@ -117,6 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
               outlinedIcon: Icons.folder_outlined,
             ),
           ],
+          ispersian: true,
         ),
       ),
     );
