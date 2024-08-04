@@ -41,7 +41,7 @@ class BuildRunningDrop extends StatelessWidget {
             )
             .value,
         child: Stack(
-          alignment: Alignment.topCenter,
+          alignment: Alignment.bottomCenter,
           children: <Widget>[
             Opacity(
               opacity: controller.value <= 0.45 ? 1.0 : 0.0,

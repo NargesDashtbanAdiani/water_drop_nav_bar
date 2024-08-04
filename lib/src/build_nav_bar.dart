@@ -132,16 +132,13 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
           ),
           Align(
             alignment: Alignment.bottomLeft,
-            child: RotatedBox(
-              quarterTurns: 2,
-              child: BuildRunningDrop(
-                itemCount: items.length,
-                controller: _controller,
-                selectedIndex: selectedIndex,
-                previousIndex: _previousIndex,
-                color: dropColor,
-                isPersian: widget.ispersian,
-              ),
+            child: BuildRunningDrop(
+              itemCount: items.length,
+              controller: _controller,
+              selectedIndex: selectedIndex,
+              previousIndex: _previousIndex,
+              color: dropColor,
+              isPersian: widget.ispersian,
             ),
           ),
         ],

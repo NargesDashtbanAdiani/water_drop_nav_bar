@@ -24,9 +24,12 @@ class BuildFallingDrop extends StatelessWidget {
         child: SizedBox(
           width: width,
           height: height,
-          child: CustomPaint(
-            size: Size.zero,
-            painter: WaterDropPainter(color),
+          child: RotatedBox(
+            quarterTurns: 2,
+            child: CustomPaint(
+              size: Size.zero,
+              painter: WaterDropPainter(color),
+            ),
           ),
         ),
       ),
