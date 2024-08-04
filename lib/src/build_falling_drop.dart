@@ -20,12 +20,12 @@ class BuildFallingDrop extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: itemWidth,
-      child: UnconstrainedBox(
-        child: SizedBox(
-          width: width,
-          height: height,
-          child: RotatedBox(
-            quarterTurns: 2,
+      child: RotatedBox(
+        quarterTurns: 2,
+        child: UnconstrainedBox(
+          child: SizedBox(
+            width: width,
+            height: height,
             child: CustomPaint(
               size: Size.zero,
               painter: WaterDropPainter(color),

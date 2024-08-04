@@ -90,7 +90,7 @@ class BuildIconButton extends StatelessWidget {
                   )),
             ),
             const Column(
-              children: [
+              children: <Widget>[
                 SizedBox(height: 24),
                 Text('test'),
               ],
