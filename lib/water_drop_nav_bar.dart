@@ -7,7 +7,7 @@ import 'src/build_nav_bar.dart';
 
 export 'src/bar_item.dart';
 
-class WaterDropNavBar extends StatelessWidget {
+class MyWaterDropNavBar extends StatelessWidget {
   /// Background Color of the bar.
   final Color backgroundColor;
 
@@ -35,7 +35,7 @@ class WaterDropNavBar extends StatelessWidget {
 
   final bool isPersian;
 
-  const WaterDropNavBar({
+  const MyWaterDropNavBar({
     required this.barItems,
     required this.selectedIndex,
     required this.onItemSelected,
