@@ -104,7 +104,7 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
           Container(
             color: Colors.red,
             child: Align(
-              alignment: Alignment.bottomCenter,
+              alignment: Alignment.topCenter,
               child: AnimatedBuilder(
                 animation: _controller,
                 builder: (_, __) => Row(
