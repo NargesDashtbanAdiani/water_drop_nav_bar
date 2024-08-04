@@ -111,22 +111,19 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
                 children: items.map(
                   (BarItem item) {
                     final int index = items.indexOf(item);
-                    return Container(
-                      color: Colors.black,
-                      child: BuildIconButton(
-                        bottomPadding: bottomPadding,
-                        barHeight: barHeight,
-                        barColor: backgroundColor,
-                        inactiveColor: inactiveIconColor,
-                        color: dropColor,
-                        index: index,
-                        iconSize: iconSize,
-                        seletedIndex: selectedIndex.toInt(),
-                        controller: _controller,
-                        selectedIcon: item.filledIcon,
-                        unslectedIcon: item.outlinedIcon,
-                        onPressed: () => _onTap(index),
-                      ),
+                    return BuildIconButton(
+                      bottomPadding: bottomPadding,
+                      barHeight: barHeight,
+                      barColor: backgroundColor,
+                      inactiveColor: inactiveIconColor,
+                      color: dropColor,
+                      index: index,
+                      iconSize: iconSize,
+                      seletedIndex: selectedIndex.toInt(),
+                      controller: _controller,
+                      selectedIcon: item.filledIcon,
+                      unslectedIcon: item.outlinedIcon,
+                      onPressed: () => _onTap(index),
                     );
                   },
                 ).toList(),
