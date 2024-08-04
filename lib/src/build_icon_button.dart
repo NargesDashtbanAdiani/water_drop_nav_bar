@@ -75,7 +75,7 @@ class BuildIconButton extends StatelessWidget {
         padding: EdgeInsets.only(bottom: bottomPadding),
         child: Stack(
           // fit: StackFit.expand,
-          alignment: Alignment.bottomCenter,
+          alignment: Alignment.topCenter,
           children: <Widget>[
             Transform.scale(
               scale: _bottomIconScale(),
@@ -88,6 +88,12 @@ class BuildIconButton extends StatelessWidget {
                     size: iconSize,
                     color: inactiveColor,
                   )),
+            ),
+            const Column(
+              children: [
+                SizedBox(height: 24),
+                Text('test'),
+              ],
             ),
             Transform.scale(
               scale: _topIconScale(),
