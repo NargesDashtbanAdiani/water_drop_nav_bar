@@ -65,7 +65,6 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      //milliseconds: 800
       duration: const Duration(milliseconds: 800),
     )..forward(from: 0.0);
   }
@@ -84,14 +83,6 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
 
       _previousIndex = widget.selectedIndex;
     }
-
-    // if (selectedIndex == index || _controller.isAnimating) {
-    //   return;
-    // } else {
-    //   widget.onItemSelected(index);
-    //   _controller.forward(from: 0.0);
-    //   _previousIndex = widget.selectedIndex;
-    // }
   }
 
   @override
@@ -110,6 +101,38 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
       color: backgroundColor,
       child: Stack(
         children: <Widget>[
+          Container(
+            color: Colors.red,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: AnimatedBuilder(
+                animation: _controller,
+                builder: (_, __) => Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  // crossAxisAlignment: CrossAxisAlignment.end,
+                  children: items.map(
+                    (BarItem item) {
+                      final int index = items.indexOf(item);
+                      return BuildIconButton(
+                        bottomPadding: bottomPadding,
+                        barHeight: barHeight,
+                        barColor: backgroundColor,
+                        inactiveColor: inactiveIconColor,
+                        color: dropColor,
+                        index: index,
+                        iconSize: iconSize,
+                        seletedIndex: selectedIndex.toInt(),
+                        controller: _controller,
+                        selectedIcon: item.filledIcon,
+                        unslectedIcon: item.outlinedIcon,
+                        onPressed: () => _onTap(index),
+                      );
+                    },
+                  ).toList(),
+                ),
+              ),
+            ),
+          ),
           BuildRunningDrop(
             itemCount: items.length,
             controller: _controller,
@@ -117,35 +140,6 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
             previousIndex: _previousIndex,
             color: dropColor,
             isPersian: widget.ispersian,
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: AnimatedBuilder(
-              animation: _controller,
-              builder: (_, __) => Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                // crossAxisAlignment: CrossAxisAlignment.end,
-                children: items.map(
-                  (BarItem item) {
-                    final int index = items.indexOf(item);
-                    return BuildIconButton(
-                      bottomPadding: bottomPadding,
-                      barHeight: barHeight,
-                      barColor: backgroundColor,
-                      inactiveColor: inactiveIconColor,
-                      color: dropColor,
-                      index: index,
-                      iconSize: iconSize,
-                      seletedIndex: selectedIndex.toInt(),
-                      controller: _controller,
-                      selectedIcon: item.filledIcon,
-                      unslectedIcon: item.outlinedIcon,
-                      onPressed: () => _onTap(index),
-                    );
-                  },
-                ).toList(),
-              ),
-            ),
           ),
         ],
       ),
