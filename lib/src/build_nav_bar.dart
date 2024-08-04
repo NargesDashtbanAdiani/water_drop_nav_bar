@@ -110,6 +110,14 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
       color: backgroundColor,
       child: Stack(
         children: <Widget>[
+          BuildRunningDrop(
+            itemCount: items.length,
+            controller: _controller,
+            selectedIndex: selectedIndex,
+            previousIndex: _previousIndex,
+            color: dropColor,
+            isPersian: widget.ispersian,
+          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: AnimatedBuilder(
@@ -139,14 +147,6 @@ class _WaterDropNavBarState extends State<WaterDropNavBar>
               ),
             ),
           ),
-          BuildRunningDrop(
-            itemCount: items.length,
-            controller: _controller,
-            selectedIndex: selectedIndex,
-            previousIndex: _previousIndex,
-            color: dropColor,
-            isPersian: widget.ispersian,
-          )
         ],
       ),
     );
